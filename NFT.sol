@@ -20,7 +20,7 @@ import "WithdrawMixin.sol";
  * @title SimpleNFT
  * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Tradable for a barebones implementation. 
  */
-contract MichaelNFT is MinterMixin, OperatorMixin, WithdrawMixin {    
+contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {    
 // contract SimpleNFT is ERC721Tradable {    
     
     // Price to mint a new token
@@ -29,7 +29,7 @@ contract MichaelNFT is MinterMixin, OperatorMixin, WithdrawMixin {
     /**
      * @dev Replace with your own unique name and symbol
      */
-    constructor() ERC721Tradable("Michael's Sleepy Miami Club", "SYMBOL") {
+    constructor() ERC721Tradable("Contract Name", "SYMBOL") {
     }
 
     function baseTokenURI() public override pure returns (string memory) {
