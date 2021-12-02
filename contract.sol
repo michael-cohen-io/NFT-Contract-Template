@@ -1,24 +1,11 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.2;
 
-contract SimpleStorage {
-  uint256 storedData;
-	
-  function get() public view returns (uint) {
-    return storedData;
-  }
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-  function set(uint x) public {
-    storedData = x;
-  }
-
-  function double() public {
-    storedData *= 2;
-  }
-}
-
-contract MathTest {
-	function multiply(uint a, uint b) public pure returns (uint) {
-    return a*b;
-  }
-}
+import "NFT.sol";
