@@ -5,31 +5,72 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
 import "ERC721Tradable.sol";
+import "MinterMixin.sol";
+import "OperatorMixin.sol";
+import "WithdrawMixin.sol";
 
 // To read more about NFTs, checkout the ERC721 standard:
 // https://eips.ethereum.org/EIPS/eip-721 
 
-/**
-Gas efficient implementation, which overrides approval using a registry of approved addreses
-**/
 
-contract SimpleNFT is ERC721Tradable {    
+/**
+ * @title SimpleNFT
+ * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Tradable for a barebones implementation. 
+ */
+contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {    
+// contract SimpleNFT is ERC721Tradable {    
     
-		// You can pass in your own NFT name and symbol (like a stock ticker) here!
+    // Price to mint a new token
+    uint256 constant mint_cost = 0.08 ether;
+
+    /**
+     * @dev Replace with your own unique name and symbol
+     */
     constructor() ERC721Tradable("NFT Name", "SYMBOL") {
     }
 
-    function baseTokenURI() override public pure returns (string memory) {
-      return "";
+    function baseTokenURI() public override pure returns (string memory) {
+      return "https://creatures-api.opensea.io/api/creature/";
     }
 
     /**
-     * @dev Mints a token to an address without a tokenUri
+     * @dev Mints a new token to the address specifed at the mint_cost price
      * @param _to address of the future owner of the token
      */
-    function mintTo(address _to) override public onlyOwner returns (uint256) {
+    function mintTo(address _to) public override(ERC721Tradable, MinterMixin) payable returns (uint256) {
+        require(msg.value == mint_cost, "Transaction value did not equal mint_cost");
         return super.mintTo(_to);
     }
 
+    /**
+     * @dev checks if a 3p (the operator) can transact on the owners behalf. 
+     * Deferrs to the OperatorMixin implementation
+     * @param owner address of the owner of the token
+     * @param operator address of the third-party operator
+     */
+    function isApprovedForAll(address owner, address operator)
+        override(ERC721, OperatorMixin)
+        public
+        view
+        returns (bool)
+    {
+      return super.isApprovedForAll(owner, operator);
+    }
+
+    /**
+     * @dev verifies if the interfaceId passed in is supported 
+     * Must be implemented here due to Solidity limitations
+     * @param interfaceId interface being supported
+     */
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(MinterMixin, OperatorMixin, WithdrawMixin)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
 }
