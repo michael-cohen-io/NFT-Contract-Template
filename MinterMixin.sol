@@ -38,7 +38,7 @@ abstract contract MinterMixin is ERC721Tradable {
      * @dev Mints a token to an address with a tokenURI.
      * @param _to address of the future owner of the token
      */
-    function mintTo(address _to) public virtual override payable onlyRole(MINTER_ROLE) returns (uint256) {
+    function mint(address _to) public virtual override payable onlyRole(MINTER_ROLE) returns (uint256) {
         uint256 currentTokenId = _nextTokenId.current();
         require(currentTokenId < MAX_SUPPLY, "Max supply reached");
         _nextTokenId.increment();

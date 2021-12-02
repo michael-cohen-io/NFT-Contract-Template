@@ -44,7 +44,7 @@ abstract contract ERC721Tradable is ERC721, AccessControl {
      * @dev Mints a token to an address.
      * @param _to address of the future owner of the token
      */
-    function mintTo(address _to) public virtual payable returns (uint256) {
+    function mint(address _to) public virtual payable returns (uint256) {
         _safeMint(_to, tokenId);
         tokenId += 1;
         return tokenId;

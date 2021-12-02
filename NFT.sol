@@ -20,16 +20,16 @@ import "WithdrawMixin.sol";
  * @title SimpleNFT
  * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Tradable for a barebones implementation. 
  */
-contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {    
+contract MichaelNFT is MinterMixin, OperatorMixin, WithdrawMixin {    
 // contract SimpleNFT is ERC721Tradable {    
     
     // Price to mint a new token
-    uint256 constant mint_cost = 0.08 ether;
+    uint256 public constant MINT_PRICE = 0.08 ether;
 
     /**
      * @dev Replace with your own unique name and symbol
      */
-    constructor() ERC721Tradable("NFT Name", "SYMBOL") {
+    constructor() ERC721Tradable("Michael's Sleepy Miami Club", "SYMBOL") {
     }
 
     function baseTokenURI() public override pure returns (string memory) {
@@ -37,12 +37,12 @@ contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {
     }
 
     /**
-     * @dev Mints a new token to the address specifed at the mint_cost price
+     * @dev Mints a new token to the address specifed at the MINT_PRICE price
      * @param _to address of the future owner of the token
      */
-    function mintTo(address _to) public override(ERC721Tradable, MinterMixin) payable returns (uint256) {
-        require(msg.value == mint_cost, "Transaction value did not equal mint_cost");
-        return super.mintTo(_to);
+    function mint(address _to) public override(ERC721Tradable, MinterMixin) payable returns (uint256) {
+        require(msg.value == MINT_PRICE, "Transaction value did not equal MINT_PRICE");
+        return super.mint(_to);
     }
 
     /**
