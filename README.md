@@ -33,6 +33,8 @@ There are several different mixins users can choose to add or remove from their 
 
 ## Future work
 
+I cannot for the life of me figure out why I can't put the contracts into a dedicated folder, but the whole things crashes when I do that
+
 Harden the mixin architecture further to make it easier to extend and add more interesting implementations that can be plugged in easily.
 
 Some thoughts so far include splitting out minting into more subfeatures like:
