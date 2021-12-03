@@ -47,11 +47,29 @@ abstract contract MinterMixin is ERC721Tradable {
     }
 
     /**
-        @dev Returns the total tokens minted so far.
-        1 is always subtracted from the Counter since it tracks the next available tokenId.
+     * @dev Returns the total tokens minted so far.
+     * 1 is always subtracted from the Counter since it tracks the next available tokenId.
      */
     function totalSupply() public view returns (uint256) {
         return _nextTokenId.current() - 1;
+    }
+
+    /**
+     * @dev Grants the address provided the MINTER role
+     * @param minter address of the third-party operator
+     */
+    function allowAddressForMinting(address minter) public onlyRole(DEFAULT_ADMIN_ROLE) {
+      require(!hasRole(MINTER_ROLE, minter), "Provided address already allowed to mint");
+      _grantRole(MINTER_ROLE, minter);
+    }
+
+    /**
+     * @dev Revokes the OPERATOR role from the address
+     * @param minter address of the third-party operator
+     */
+    function removeAddressFromMinting(address minter) public onlyRole(DEFAULT_ADMIN_ROLE) {
+      require(hasRole(MINTER_ROLE, minter), "Provided address not allowed to mint already");
+      _revokeRole(MINTER_ROLE, minter);
     }
 
     function supportsInterface(bytes4 interfaceId)

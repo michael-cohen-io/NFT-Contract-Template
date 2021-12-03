@@ -28,6 +28,24 @@ abstract contract WithdrawMixin is ERC721Tradable {
     }
 
     /**
+     * @dev Grants the address provided the ability to withdraw funds from the contract
+     * @param withdrawer address of the withdrawer
+     */
+    function allowAddressToWithdraw(address withdrawer) public onlyRole(DEFAULT_ADMIN_ROLE) {
+      require(!hasRole(WITHDRAW_ROLE, withdrawer), "Provided address already has withdraw role");
+      _grantRole(WITHDRAW_ROLE, withdrawer);
+    }
+
+    /**
+     * @dev Revokes the address provided the ability to withdraw funds from the contract
+     * @param withdrawer address of the third-party operator
+     */
+    function removeAddressFromWithdrawing(address withdrawer) public onlyRole(DEFAULT_ADMIN_ROLE) {
+      require(hasRole(WITHDRAW_ROLE, withdrawer), "Provided address does not have the withdraw role");
+      _revokeRole(WITHDRAW_ROLE, withdrawer);
+    }
+
+    /**
      * @dev verifies if the interfaceId passed in is supported 
      * Must be implemented here due to Solidity limitations
      * @param interfaceId interface being supported

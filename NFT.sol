@@ -29,7 +29,7 @@ contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {
     /**
      * @dev Replace with your own unique name and symbol
      */
-    constructor() ERC721Tradable("Contract Name", "SYMBOL") {
+    constructor() ERC721Tradable("NFT Name", "SYMBOL") {
     }
 
     function baseTokenURI() public override pure returns (string memory) {

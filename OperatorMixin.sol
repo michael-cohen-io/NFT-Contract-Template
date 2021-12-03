@@ -16,6 +16,7 @@ abstract contract OperatorMixin is ERC721Tradable {
 
     constructor() {
         _grantRole(OPERATOR_ROLE, msg.sender);
+        addOpenSeaApproval(); // automatically grants OS the OPERATOR role
     }
     /**
      * @dev checks if a 3p (the operator) can transact on the owners behalf. 
@@ -34,6 +35,35 @@ abstract contract OperatorMixin is ERC721Tradable {
         return true;
       }
       return super.isApprovedForAll(owner, operator);
+    }
+
+    /**
+     * @dev Grants OpenSea's Asset proxy contract the OPERATOR role for tokens in this contract
+     */
+    function addOpenSeaApproval() private onlyRole(DEFAULT_ADMIN_ROLE) {
+      // Rinkeby Proxy: 0x7383b2ce381D10Ce4688c300861221f6f51af9C4
+      // Mainnet Proxy: 0xa5409ec958C83C3f309868babACA7c86DCB077c1
+      // Mumbai (Polygon testnet) ERC721 Proxy: 0xff7Ca10aF37178BdD056628eF42fD7F799fAc77c
+      // Polygon mainnet ERC721 Proxy: 0x58807baD0B376efc12F5AD86aAc70E78ed67deaE
+      addOperatorRole(0x7383b2ce381D10Ce4688c300861221f6f51af9C4);
+    }
+
+    /**
+     * @dev Grants the address provided the OPERATOR role
+     * @param operator address of the third-party operator
+     */
+    function addOperatorRole(address operator) public onlyRole(DEFAULT_ADMIN_ROLE) {
+      require(!hasRole(OPERATOR_ROLE, operator), "Provided address already is an operator");
+      _grantRole(OPERATOR_ROLE, operator);
+    }
+
+    /**
+     * @dev Revokes the OPERATOR role from the address
+     * @param operator address of the third-party operator
+     */
+    function removeOperatorRole(address operator) public onlyRole(DEFAULT_ADMIN_ROLE) {
+      require(hasRole(OPERATOR_ROLE, operator), "Provided address not an operator");
+      _revokeRole(OPERATOR_ROLE, operator);
     }
 
     /**

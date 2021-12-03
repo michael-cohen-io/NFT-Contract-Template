@@ -923,6 +923,7 @@ function ContractUI({
     () => new ethers.providers.Web3Provider(ethereum),
     []
   );
+  console.log(abi);
   const contractReadOnly = useMemo(
     () => new ethers.Contract(address, abi, provider),
     [address, abi, provider]
