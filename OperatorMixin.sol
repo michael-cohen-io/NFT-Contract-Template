@@ -5,7 +5,7 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "ERC721Tradable.sol";
+import "./ERC721Tradable.sol";
 
 /**
  * @title OperatorMixin
@@ -41,10 +41,6 @@ abstract contract OperatorMixin is ERC721Tradable {
      * @dev Grants OpenSea's Asset proxy contract the OPERATOR role for tokens in this contract
      */
     function addOpenSeaApproval() private onlyRole(DEFAULT_ADMIN_ROLE) {
-      // Rinkeby Proxy: 0x7383b2ce381D10Ce4688c300861221f6f51af9C4
-      // Mainnet Proxy: 0xa5409ec958C83C3f309868babACA7c86DCB077c1
-      // Mumbai (Polygon testnet) ERC721 Proxy: 0xff7Ca10aF37178BdD056628eF42fD7F799fAc77c
-      // Polygon mainnet ERC721 Proxy: 0x58807baD0B376efc12F5AD86aAc70E78ed67deaE
       addOperatorRole(0x7383b2ce381D10Ce4688c300861221f6f51af9C4);
     }
 

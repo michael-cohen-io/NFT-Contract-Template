@@ -7,10 +7,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-import "ERC721Tradable.sol";
-import "MinterMixin.sol";
-import "OperatorMixin.sol";
-import "WithdrawMixin.sol";
+import "./ERC721Tradable.sol";
+import "./MinterMixin.sol";
+import "./OpenSeaMixin.sol";
+import "./WithdrawMixin.sol";
 
 // To read more about NFTs, checkout the ERC721 standard:
 // https://eips.ethereum.org/EIPS/eip-721 
@@ -20,7 +20,7 @@ import "WithdrawMixin.sol";
  * @title SimpleNFT
  * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Tradable for a barebones implementation. 
  */
-contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {    
+contract SundayNFT is MinterMixin, OpenSeaMixin, WithdrawMixin {    
 // contract SimpleNFT is ERC721Tradable {    
     
     // Price to mint a new token
@@ -29,7 +29,7 @@ contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {
     /**
      * @dev Replace with your own unique name and symbol
      */
-    constructor() ERC721Tradable("NFT Name", "SYMBOL") {
+    constructor() ERC721Tradable("OSMixin", "SYMBOL") {
     }
 
     function baseTokenURI() public override pure returns (string memory) {
@@ -52,7 +52,7 @@ contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {
      * @param operator address of the third-party operator
      */
     function isApprovedForAll(address owner, address operator)
-        override(ERC721, OperatorMixin)
+        override(ERC721, OpenSeaMixin)
         public
         view
         returns (bool)
@@ -68,7 +68,7 @@ contract SimpleNFT is MinterMixin, OperatorMixin, WithdrawMixin {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(MinterMixin, OperatorMixin, WithdrawMixin)
+        override(MinterMixin, OpenSeaMixin, WithdrawMixin)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);

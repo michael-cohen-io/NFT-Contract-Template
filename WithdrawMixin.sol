@@ -5,7 +5,7 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "ERC721Tradable.sol";
+import "./ERC721Tradable.sol";
 
 /**
  * @title ERC721Tradable
