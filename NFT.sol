@@ -22,7 +22,6 @@ import "PaymentMixin.sol";
  * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Common for a barebones implementation. 
  */
 contract SimpleNFT is MinterMixin, OpenSeaMixin, PaymentMixin {    
-// contract SimpleNFT is ERC721Common {    
     
     // Price to mint a new token
     uint256 public constant MINT_PRICE = 0.08 ether;
@@ -34,20 +33,13 @@ contract SimpleNFT is MinterMixin, OpenSeaMixin, PaymentMixin {
      * @dev Replace with your own unique name and symbol
      */
     constructor() 
-        ERC721Common("SimpleNFT", "SYMBOL") PaymentMixin(PAYEES, SHARES) {
+        ERC721Common("SimpleNFT", "SYMBOL") 
+        PaymentMixin(PAYEES, SHARES) 
+        MinterMixin(TOTAL_SUPPLY, MINT_PRICE) {
     }
 
     function baseTokenURI() public override pure returns (string memory) {
       return "https://creatures-api.opensea.io/api/creature/";
-    }
-
-    /**
-     * @dev Mints a new token to the address specifed at the MINT_PRICE price
-     * @param _to address of the future owner of the token
-     */
-    function mint(address _to) public override(MinterMixin) payable returns (uint256) {
-        require(msg.value == MINT_PRICE, "Transaction value did not equal MINT_PRICE");
-        return super.mint(_to);
     }
 
     /**

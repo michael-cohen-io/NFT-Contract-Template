@@ -19,7 +19,10 @@ abstract contract MinterMixin is ERC721Common {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     // Maximium amount allowed to mint
-    uint256 constant MAX_SUPPLY = 10_0000;
+    uint256 private _maxSupply;
+
+    // The price to purchase
+    uint256 private _price;
 
     /*
      * We rely on the OZ Counter util to keep track of the next available ID.
@@ -28,11 +31,13 @@ abstract contract MinterMixin is ERC721Common {
      */ 
     Counters.Counter private _nextTokenId;
 
-    constructor() {
+    constructor(uint256 maxSupply, uint256 price) {
         _grantRole(MINTER_ROLE, msg.sender);
         
         // nextTokenId is initialized to 1, since starting at 0 leads to higher gas cost for the first minter
         _nextTokenId.increment();
+        _maxSupply = maxSupply;
+        _price = price;
     }
 
     /**
@@ -41,7 +46,9 @@ abstract contract MinterMixin is ERC721Common {
      */
     function mint(address _to) public virtual payable onlyRole(MINTER_ROLE) returns (uint256) {
         uint256 currentTokenId = _nextTokenId.current();
-        require(currentTokenId < MAX_SUPPLY, "Max supply reached");
+        require(currentTokenId < _maxSupply, "Max supply reached");
+        require(msg.value == _price, "Transaction value did not equal the mint price");
+
         _nextTokenId.increment();
         _safeMint(_to, currentTokenId);
         return currentTokenId;
