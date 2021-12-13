@@ -7,10 +7,12 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
+import "@divergencetech/ethier/contracts/sales/FixedPriceSeller.sol";
+
 import "ERC721Common.sol";
 import "MinterMixin.sol";
 import "OpenSeaMixin.sol";
-import "WithdrawMixin.sol";
+import "PaymentMixin.sol";
 
 // To read more about NFTs, checkout the ERC721 standard:
 // https://eips.ethereum.org/EIPS/eip-721 
@@ -20,16 +22,21 @@ import "WithdrawMixin.sol";
  * @title SimpleNFT
  * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Common for a barebones implementation. 
  */
-contract SimpleNFT is MinterMixin, OpenSeaMixin, WithdrawMixin {    
+contract SimpleNFT is MinterMixin, OpenSeaMixin, PaymentSplitter, FixedPriceSeller {    
 // contract SimpleNFT is ERC721Common {    
     
     // Price to mint a new token
     uint256 public constant MINT_PRICE = 0.08 ether;
+    uint256 public constant TOTAL_SUPPLY = 10_000;
 
     /**
      * @dev Replace with your own unique name and symbol
      */
-    constructor() ERC721Common("OSMixin", "SYMBOL") {
+    constructor(uint256 mintPrice, address[] memory _payees, uint256[] memory _shares) 
+        ERC721Common("SimpleNFT", "SYMBOL") PaymentMixin(_payees, _shares) 
+        FixedPriceSeller(mintPrice,
+            SellerConfig(TOTAL_SUPPLY, 1, 1, 0, false, false, false),
+            payable(0)) {
     }
 
     function baseTokenURI() public override pure returns (string memory) {

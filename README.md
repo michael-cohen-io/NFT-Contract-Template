@@ -23,7 +23,7 @@ We have preinstalled packages from `@openzeppelin/contracts`. To install other s
 Implements the barebones methods needed to have a functioning `NFT.sol`, so that users can start out with a simpler implementation and build up to more complex contracts if they wish. To use this implementation, remove the mixins from the contract declaration and replace any `overrides(FooMixin, BarMixin)` in `NFT.sol` with just `overrides`.
 
 ## Mixins
-These are single-purpose implementations of the same base contract `ERC721Common.sol`. Each comes with a corresponding role that is automatically granted to the deploying address, but can be added to other accounts via the `grantRole()` contract call or removed via the `revokeRole()` call.
+These are single-purpose implementations of the same base contract `ERC721Tradable.sol`. Each comes with a corresponding role that is automatically granted to the deploying address, but can be added to other accounts via the `grantRole()` contract call or removed via the `revokeRole()` call.
 
 There are several different mixins users can choose to add or remove from their implementation:
  - **MinterMixin**: Adds minting utils and some gas-saving and a Solidity counter to avoid messing up tokenId generation. Also includes logic for having a maximum amount of tokens to mint in the collection. Finally, add a special minter role that gives only role-havers the ability to mint tokens, conceptually an on-chain allowlist for minting.
