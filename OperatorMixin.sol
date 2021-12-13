@@ -5,18 +5,18 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./ERC721Tradable.sol";
+
+import "ERC721Common.sol";
 
 /**
  * @title OperatorMixin
  * OperatorMixin - Mixin that allows third party operator addresses the ability to transact on a token owner's behalf. This solution saves in some extraneous gas costs to `setApprovalForAll()` for new traders for this contract. 
  */
-abstract contract OperatorMixin is ERC721Tradable {
+abstract contract OperatorMixin is ERC721Common {
     bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
 
     constructor() {
         _grantRole(OPERATOR_ROLE, msg.sender);
-        addOpenSeaApproval(); // automatically grants OS the OPERATOR role
     }
     /**
      * @dev checks if a 3p (the operator) can transact on the owners behalf. 
@@ -35,13 +35,6 @@ abstract contract OperatorMixin is ERC721Tradable {
         return true;
       }
       return super.isApprovedForAll(owner, operator);
-    }
-
-    /**
-     * @dev Grants OpenSea's Asset proxy contract the OPERATOR role for tokens in this contract
-     */
-    function addOpenSeaApproval() private onlyRole(DEFAULT_ADMIN_ROLE) {
-      addOperatorRole(0x7383b2ce381D10Ce4688c300861221f6f51af9C4);
     }
 
     /**
@@ -70,7 +63,7 @@ abstract contract OperatorMixin is ERC721Tradable {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721Tradable)
+        override(ERC721Common)
         virtual
         returns (bool)
     {

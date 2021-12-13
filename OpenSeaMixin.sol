@@ -6,14 +6,14 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@divergencetech/ethier/contracts/erc721/OpenSeaGasFreeListing.sol";
-import "./ERC721Tradable.sol";
+import "ERC721Common.sol";
 
 /**
  * @title OpenSeaMixin
  * OpenSeaMixin - that overrides isApprovedForAll in a manner that allows users to skip the approval step when selling their NFTs, saving them a gas-costing transaction.
  * OpenSeaGasFreeListing.sol comes from ethier, a common-contract logic library implemented by divergencetech
  */
-abstract contract OpenSeaMixin is ERC721Tradable {
+abstract contract OpenSeaMixin is ERC721Common {
 
     /**
      * @dev Overrides the default implementation to also return true if the operator is OpenSea
@@ -39,7 +39,7 @@ abstract contract OpenSeaMixin is ERC721Tradable {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721Tradable)
+        override(ERC721Common)
         virtual
         returns (bool)
     {

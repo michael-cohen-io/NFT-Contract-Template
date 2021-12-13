@@ -5,13 +5,14 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./ERC721Tradable.sol";
+
+import "ERC721Common.sol";
 
 /**
- * @title ERC721Tradable
- * ERC721Tradable - ERC721 contract that allowlists a trading address, and has minting functionality.
+ * @title ERC721Common
+ * ERC721Common - ERC721 contract that allowlists a trading address, and has minting functionality.
  */
-abstract contract WithdrawMixin is ERC721Tradable {
+abstract contract WithdrawMixin is ERC721Common {
 
     // Used for access management
     bytes32 public constant WITHDRAW_ROLE = keccak256("WITHDRAW_ROLE");
@@ -53,7 +54,7 @@ abstract contract WithdrawMixin is ERC721Tradable {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721Tradable)
+        override(ERC721Common)
         virtual
         returns (bool)
     {

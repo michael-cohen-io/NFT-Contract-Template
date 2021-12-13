@@ -5,13 +5,14 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./ERC721Tradable.sol";
+
+import "ERC721Common.sol";
 
 /**
  * @title MinterMixin
  * MinterMixin - Mixin that introduces a max supply, a Minter role, and an auto-incrementing tokenId
  */
-abstract contract MinterMixin is ERC721Tradable {
+abstract contract MinterMixin is ERC721Common {
     using Counters for Counters.Counter;
 
     // Used for access management
@@ -38,7 +39,7 @@ abstract contract MinterMixin is ERC721Tradable {
      * @dev Mints a token to an address with a tokenURI.
      * @param _to address of the future owner of the token
      */
-    function mint(address _to) public virtual override payable onlyRole(MINTER_ROLE) returns (uint256) {
+    function mint(address _to) public virtual payable onlyRole(MINTER_ROLE) returns (uint256) {
         uint256 currentTokenId = _nextTokenId.current();
         require(currentTokenId < MAX_SUPPLY, "Max supply reached");
         _nextTokenId.increment();
@@ -75,7 +76,7 @@ abstract contract MinterMixin is ERC721Tradable {
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721Tradable)
+        override(ERC721Common)
         virtual
         returns (bool)
     {
