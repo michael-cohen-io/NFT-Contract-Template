@@ -31,4 +31,11 @@ abstract contract FixedPriceSeller is Seller {
     function cost(uint256 n) public view override returns (uint256) {
         return n * price;
     }
+    
+    function _handlePurchase(
+        address,
+        uint256,
+        bool
+    ) internal override {
+    }
 }

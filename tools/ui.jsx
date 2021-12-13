@@ -57,6 +57,8 @@ async function deploy(spec, name, chainId) {
   );
   const contract = await factory.deploy();
   await contract.deployed();
+  // const contract = await factory.deploy(8, ["0xb9720BE63Ea8896956A06d2dEd491De125fD705E"], [100]);
+  // await contract.deployed();
 
   return {
     address: contract.address,

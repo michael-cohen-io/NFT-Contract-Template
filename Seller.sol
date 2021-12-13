@@ -2,8 +2,8 @@
 // Copyright (c) 2021 the ethier authors (github.com/divergencetech/ethier)
 pragma solidity >=0.8.0 <0.9.0;
 
-import "../utils/Monotonic.sol";
-import "../utils/OwnerPausable.sol";
+import "@divergencetech/ethier/contracts/utils/Monotonic.sol";
+import "@divergencetech/ethier/contracts//utils/OwnerPausable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
@@ -114,10 +114,6 @@ abstract contract Seller is OwnerPausable, ReentrancyGuard {
         bool freeOfCharge
     ) internal virtual;
 
-    /**
-    @notice Tracks total number of items sold by this contract, including those
-    purchased free of charge by the contract owner.
-     */
     Monotonic.Increaser private _totalSold;
 
     /// @notice Returns the total number of items sold by this contract.
@@ -126,8 +122,6 @@ abstract contract Seller is OwnerPausable, ReentrancyGuard {
     }
 
     /**
-    @notice Tracks the number of items already bought by an address, regardless
-    of transferring out (in the case of ERC721).
     @dev This isn't public as it may be skewed due to differences in msg.sender
     and tx.origin, which it treats in the same way such that
     sum(_bought)>=totalSold().
@@ -160,7 +154,7 @@ abstract contract Seller is OwnerPausable, ReentrancyGuard {
         uint256 amount
     );
 
-    /// @notice Tracks number of items purchased free of charge.
+    
     Monotonic.Increaser private purchasedFreeOfCharge;
 
     /**
