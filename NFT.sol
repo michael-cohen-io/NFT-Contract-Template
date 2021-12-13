@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-import "@divergencetech/ethier/contracts/sales/FixedPriceSeller.sol";
+import "./FixedPriceSeller.sol";
 
 import "ERC721Common.sol";
 import "MinterMixin.sol";
