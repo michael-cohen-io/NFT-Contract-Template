@@ -201,9 +201,6 @@ abstract contract Seller is OwnerPausable, ReentrancyGuard {
         nonReentrant
         whenNotPaused
     {
-        /**
-         * ##### CHECKS
-         */
         SellerConfig memory config = sellerConfig;
 
         uint256 n = config.maxPerTx == 0
