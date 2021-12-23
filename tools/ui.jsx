@@ -74,21 +74,21 @@ const GlobalStyles = createGlobalStyle`
 	}
   :root {
 		/** color */
-    --fg-default: #F5F9FC;
-		--fg-dimmer: #C2C8CC;
-		--fg-dimmest: #9DA2A6;
-		--bg-root: #0E1525;
+    --fg-default: #363840;
+		--fg-dimmer: #363840;
+		--fg-dimmest: #363840;
+		--bg-root: #FFFFFF;
 		--bg-default: #1C2333;
-		--bg-higher: #2B3245;
-		--bg-highest: #3C445C;
-		--outline-default: #70788C;
-		--outline-dimmer:  #5F677A;
-		--outline-dimmest: #4E5569;
-		--overlay: #0e1525A0;
+		--bg-higher: #1C2333;
+		--bg-highest: #1C2333;
+		--outline-default: #2081E2;
+		--outline-dimmer:  #1868B7;
+		--outline-dimmest: #1868B7;
+		--overlay: #FFFFFF;
 
 		/**accents */
-		--accent-primary-default: #0099FF;
-		--accent-primary-dimmer: #0072BD;
+		--accent-primary-default: #2081E2;
+		--accent-primary-dimmer: #1868B7;
 
 		--accent-negative-default: #F23F3F;
 		--accent-negative-dimmer: #8F2828;
@@ -97,8 +97,8 @@ const GlobalStyles = createGlobalStyle`
 		--accent-warning-dimmer: #756200;
 
 		/**type */
-		--font-family-default: 'IBM Plex Sans', sans-serif;
-		--font-family-code: 'IBM Plex Mono', monospace;
+		--font-family-default: "Poppins", Arial, sans-serif;
+		--font-family-code: "Poppins", Arial, sans-serif;
 
 		--font-size-header: 24px;
 		--font-size-subheader: 18px;
@@ -133,22 +133,22 @@ const GlobalStyles = createGlobalStyle`
 		font-weight: 500;
 		border-radius: var(--br-8);
 		outline: none;
-		background-color: var(--bg-higher);
+		background-color: #1868B7 !important;
 		border: 1px solid var(--bg-higher);
-		color: white;
+		color: var(--bg-root);
 		font-size: var(--font-size-default);
 		line-height: var(--font-size-default);
 		cursor: pointer;
 	}
   button:disabled {
 		background: var(--bg-highest) !important;
-		border-color: var(--bg-higher) !important;
+		border-color: var(--bg-root) !important;
 		color: var(--fg-dimmest) !important;
   }
 	button.primary {
 		border: 1px solid var(--accent-primary-dimmer);
-		background-color: var(--accent-primary-dimmer);
-		color: white;
+		background-color: #1868B7;
+		color: var(--bg-higher);
 	}
 	body {
 		padding: 0;
@@ -445,7 +445,7 @@ export default function App() {
           padding: 40,
         }}
       >
-        <h1 style={{ textAlign: "center" }}>Replit 🤝 Ethereum</h1>
+        <h1 style={{ textAlign: "center" }}>OpenSea Contract Deployer</h1>
         <a
           style={{ whiteSpace: "nowrap" }}
           href="https://metamask.io/"
@@ -527,7 +527,7 @@ export default function App() {
             className="main-title"
             style={{ paddingBottom: "var(--space-8)" }}
           >
-            Replit 🤝 Ethereum
+            OpenSea Contract Deployer
           </h1>
           {walletAddress && <ChainInfo chainId={chainId} />}
         </VStack>
