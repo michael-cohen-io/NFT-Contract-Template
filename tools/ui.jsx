@@ -78,9 +78,9 @@ const GlobalStyles = createGlobalStyle`
 		--fg-dimmer: #363840;
 		--fg-dimmest: #363840;
 		--bg-root: #FFFFFF;
-		--bg-default: #1C2333;
-		--bg-higher: #1C2333;
-		--bg-highest: #1C2333;
+		--bg-default: #FFFFFF;
+		--bg-higher: #FFFFFF;
+		--bg-highest: #FFFFFF;
 		--outline-default: #2081E2;
 		--outline-dimmer:  #1868B7;
 		--outline-dimmest: #1868B7;
@@ -304,7 +304,7 @@ const Wrapper = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: var(--bg-default);
+  background-color: var(--bg-root);
 `;
 
 const Dot = styled.div`
@@ -488,7 +488,7 @@ export default function App() {
             style={{
               width: "75%",
               maxWidth: "400px",
-              backgroundColor: "var(--bg-default)",
+              backgroundColor: "var(--bg-root)",
               border: "1px solid var(--outline-default)",
               padding: "var(--space-16)",
               borderRadius: "var(--br-8)",
@@ -943,7 +943,7 @@ function ContractUI({
   return (
     <VStack
       style={{
-        backgroundColor: isOpen ? "var(--bg-default)" : "var(--bg-root)",
+        backgroundColor: isOpen ? "var(--bg-root)" : "var(--bg-root)",
         border: "1px solid var(--outline-dimmest)",
         borderRadius: "var(--br-8)",
         marginBottom: "var(--space-16)",
@@ -1144,7 +1144,7 @@ function FunctionUI({
         flex: 2,
         overflow: "hidden",
         padding: "var(--space-8)",
-        backgroundColor: "var(--bg-highest)",
+        backgroundColor: "var(--bg-root)",
       }}
       onSubmit={execute}
     >
@@ -1166,7 +1166,7 @@ function FunctionUI({
           {/* RUN BUTTON */}
           <button
             disabled={!chainIsActive}
-            className="run-button primary"
+            className="run-button"
             type="submit"
             style={{
               gap: 4,
