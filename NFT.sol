@@ -21,7 +21,7 @@ import "PaymentMixin.sol";
  * @title SimpleNFT
  * SimpleNFT - A concrete NFT contract implementation that can optionally inherit from several Mixins for added functionality or directly from ERC721Common for a barebones implementation. 
  */
-contract SimpleNFT is MinterMixin, OpenSeaMixin, PaymentMixin {    
+contract NFT is MinterMixin, OpenSeaMixin, PaymentMixin {    
     
     // Price to mint a new token
     uint256 public constant MINT_PRICE = 0.08 ether;
